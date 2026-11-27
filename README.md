@@ -4,12 +4,12 @@ Web app quản lý học sinh, học phí và đối chiếu giao dịch. Đăng
 
 ## Cấu hình Supabase
 
-1. Tạo project Supabase ở tổ chức đã chọn và chạy migration `supabase/migrations/202611270001_center_data.sql`.
-2. Tắt public sign-up trong Authentication settings. Tạo/invite riêng hai người dùng.
-3. Trong Supabase Auth, đặt `app_metadata.role` thành `owner` cho chủ trung tâm và `accountant` cho kế toán. Role phải nằm trong app metadata do máy chủ quản lý, không dùng user metadata.
+1. Chạy migration `supabase/migrations/202611270001_center_data.sql` và `supabase/migrations/202611270002_auth_signup_allowlist.sql`.
+2. Thêm email được phép đăng ký vào schema riêng `private.auth_signup_allowlist` với role `owner` hoặc `accountant`. Schema và bảng này không được cấp quyền cho người dùng thường. Email chủ trung tâm được lưu ở đây trong Supabase, không nằm trong repo.
+3. Trong Authentication → URL Configuration, đặt Site URL và Redirect URL là URL Render của app. Người dùng nhập email cùng mật khẩu họ tự chọn ở nút “Tạo tài khoản”; họ cần xác nhận email trước khi đăng nhập.
 4. Sao chép Project URL và publishable (anon) key vào `SUPABASE_URL` và `SUPABASE_ANON_KEY` trong môi trường chạy app. Không dùng service-role key ở trình duyệt.
 
-Bảng dữ liệu được tạo chưa có hàng nào. Hàng dữ liệu trống đầu tiên chỉ được tạo khi người dùng được cấp quyền lưu thay đổi; không có học sinh mẫu.
+Bảng dữ liệu được tạo chưa có hàng nào. Hàng dữ liệu trống đầu tiên chỉ được tạo khi người dùng được cấp quyền lưu thay đổi; không có học sinh mẫu. Trigger Auth từ chối đăng ký ngoài danh sách cho phép và tự gán role trong app metadata.
 
 ## Chạy cục bộ
 
