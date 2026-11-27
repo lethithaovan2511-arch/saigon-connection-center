@@ -2,6 +2,8 @@
 
 Web app quản lý học sinh, học phí và đối chiếu giao dịch. Đăng nhập dùng Supabase Auth; dữ liệu ứng dụng được đồng bộ trong bảng `public.center_data` và giới hạn bằng Row Level Security.
 
+Hồ sơ học sinh hỗ trợ nhập mức học phí tháng; khi ghi nhận khoản thu, mức này được điền mặc định và có thể sửa. Trong mục Thu học phí, các khoản mua áo và mua sách được nhập riêng, không tự phân loại theo hình thức thanh toán.
+
 ## Cấu hình Supabase
 
 1. Chạy migration `supabase/migrations/202611270001_center_data.sql` và `supabase/migrations/202611270002_auth_signup_allowlist.sql`.
